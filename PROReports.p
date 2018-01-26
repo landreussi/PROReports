@@ -1,7 +1,3 @@
-/* ************** PROReports ***************** */
-/* Criado e idealizado por:                    */
-/*     Lucas Andreussi Simerdel                */
-
 {includes/dashboard.i}
 
 DEFINE VARIABLE c-caminho   AS CHAR NO-UNDO.
