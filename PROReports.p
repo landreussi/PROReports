@@ -1,3 +1,7 @@
+/* ************** PROReports ***************** */
+/* Criado e idealizado por:                    */
+/*     Lucas Andreussi Simerdel                */
+
 {includes/dashboard.i}
 
 DEFINE VARIABLE c-caminho   AS CHAR NO-UNDO.
@@ -32,7 +36,7 @@ PROCEDURE initialize:
 DEFINE INPUT  PARAMETER caminho AS CHAR NO-UNDO.
 DEFINE INPUT  PARAMETER titulo AS CHAR FORMAT "X(100)" NO-UNDO.
 DEFINE INPUT  PARAMETER nome AS CHAR NO-UNDO.
-DEFINE INPUT  PARAMETER tema AS CHAR NO-UNDO.
+DEF INPUT  PARAMETER tema AS CHAR NO-UNDO.
 DEFINE INPUT  PARAMETER pdf AS LOGICAL     NO-UNDO.
 DEFINE INPUT  PARAMETER container AS LOGICAL     NO-UNDO.
 DEFINE INPUT  PARAMETER acomp AS LOGICAL     NO-UNDO.

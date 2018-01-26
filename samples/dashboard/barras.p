@@ -7,11 +7,11 @@ DEFINE VARIABLE c-qtd-1  AS CHARACTER FORMAT "X(50)"  NO-UNDO.
 DEFINE VARIABLE c-nome   AS CHARACTER INIT "barras"  NO-UNDO.
 RUN proreports.p PERSISTENT SET h.
 FIND FIRST tt-dashboard WHERE tt-dashboard.NAME = c-nome NO-LOCK NO-ERROR.
-  IF AVAIL tt-dashboard THEN DO:  
+  IF AVAIL tt-dashboard THEN DO:
     RUN initialize IN h (tt-dashboard.path,
-                         "Grafico Itens Barra", 
-                         tt-dashboard.NAME, 
-                         tt-dashboard.theme, 
+                         "Grafico Itens Barra",
+                         tt-dashboard.NAME,
+                         tt-dashboard.theme,
                          NO,
                          tt-dashboard.container-page,
                          tt-dashboard.acomp).
@@ -19,7 +19,8 @@ FIND FIRST tt-dashboard WHERE tt-dashboard.NAME = c-nome NO-LOCK NO-ERROR.
                   tt-dashboard.nav,
                   tt-dashboard.inverse,
                   tt-dashboard.container-nav).
-    FOR EACH ITEM WHERE ITEM.ge-codigo = 30 NO-LOCK BREAK BY ITEM.data-implant:
+    run header in h ("Quantidade de itens gerados entre 20/01 e 26/01", "", 2).
+    FOR EACH ITEM WHERE ITEM.data-implant >= 01/20/2018 and ITEM.data-implant <= 01/26/2018 NO-LOCK BREAK BY ITEM.data-implant:
         ASSIGN i-items = i-items + 1.
         IF FIRST-OF(ITEM.data-implant) THEN do:
             ASSIGN c-qtd   = c-qtd + STRING(i-items) + ";"
@@ -30,12 +31,12 @@ FIND FIRST tt-dashboard WHERE tt-dashboard.NAME = c-nome NO-LOCK NO-ERROR.
     END.
     ASSIGN c-qtd-1  = SUBSTR(c-qtd-1,1,LENGTH(c-qtd-1) - 1)
            c-data   = SUBSTR(c-data,1,LENGTH(c-data) - 1).
-    RUN chart IN h("bar", 
-                   c-data, 
+    RUN chart IN h("bar",
+                   c-data,
                    "#44A8C9;#3A9ABA;#5CB0CC;#4BA2BF;#EB4B36;#F5604C;#ED5440;#F73116",
                    c-qtd + c-qtd-1,
-                   2000, 
-                   800,  
+                   2000,
+                   800,
                    "itens").
     RUN finish IN h(NO).
 END.

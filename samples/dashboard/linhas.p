@@ -7,11 +7,11 @@ DEFINE VARIABLE c-qtd-1  AS CHARACTER FORMAT "X(50)"  NO-UNDO.
 DEFINE VARIABLE c-nome   AS CHARACTER INIT "linhas"  NO-UNDO.
 RUN proreports.p PERSISTENT SET h.
 FIND FIRST tt-dashboard WHERE tt-dashboard.NAME = c-nome NO-LOCK NO-ERROR.
-  IF AVAIL tt-dashboard THEN DO:  
+  IF AVAIL tt-dashboard THEN DO:
     RUN initialize IN h (tt-dashboard.path,
-                         "Grafico Itens Linha", 
-                         tt-dashboard.NAME, 
-                         tt-dashboard.theme, 
+                         "Grafico Itens Linha",
+                         tt-dashboard.NAME,
+                         tt-dashboard.theme,
                          NO,
                          tt-dashboard.container-page,
                          tt-dashboard.acomp).
@@ -19,7 +19,8 @@ FIND FIRST tt-dashboard WHERE tt-dashboard.NAME = c-nome NO-LOCK NO-ERROR.
                   tt-dashboard.nav,
                   tt-dashboard.inverse,
                   tt-dashboard.container-nav).
-    FOR EACH ITEM WHERE ITEM.ge-codigo = 30 NO-LOCK BREAK BY ITEM.data-implant:
+    run header in h ("Quantidade de itens gerados entre 20/01 e 26/01", "", 2).
+    FOR EACH ITEM WHERE ITEM.data-implant >= 01/20/2018 and ITEM.data-implant <= 01/26/2018 NO-LOCK BREAK BY ITEM.data-implant:
         ASSIGN i-items = i-items + 1.
         IF FIRST-OF(ITEM.data-implant) THEN do:
             ASSIGN c-qtd   = c-qtd + STRING(i-items) + ";"
@@ -30,10 +31,10 @@ FIND FIRST tt-dashboard WHERE tt-dashboard.NAME = c-nome NO-LOCK NO-ERROR.
     END.
     ASSIGN c-qtd-1  = SUBSTR(c-qtd-1,1,LENGTH(c-qtd-1) - 1)
            c-data   = SUBSTR(c-data,1,LENGTH(c-data) - 1).
-    RUN chart IN h("line", /* TIPO DE GRµFICO */
-                   c-data, /* DADOS A SEREM COLOCADOS NO GRµFICO X (SEPARADOS POR VIRGULA) */
+    RUN chart IN h("line", /* TIPO DE GRï¿½FICO */
+                   c-data, /* DADOS A SEREM COLOCADOS NO GRï¿½FICO X (SEPARADOS POR VIRGULA) */
                    "rgba(151,187,205,0.2);rgba(151,187,205,1);rgba(151,187,205,1);#fff;#fff;rgba(151,187,205,1);rgba(220,220,220,0.2);rgba(220,220,220,1);rgba(220,220,220,1);#fff;#fff;rgba(220,220,220,1)", /* CORES USADAS NO GRAFICO */
-                   c-qtd + c-qtd-1, /* DADOS A SEREM COLOCADOS NO GRµFICO Y (SEPARADOS POR VIRGULA) */
+                   c-qtd + c-qtd-1, /* DADOS A SEREM COLOCADOS NO GRï¿½FICO Y (SEPARADOS POR VIRGULA) */
                    2000, /* TAMANHO DE X */
                    800,  /* TAMANHO DE Y */
                    "itens"). /* ID DO GRAFICO */
