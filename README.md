@@ -27,7 +27,7 @@ API para gerar páginas baseadas em bootstrap para Openedge Progress
 ### add-row (requere insert-table):
 **Parâmetros de entrada:**
 * CHARACTER CSV: os campos de sua linha separado por ';'
-* CHARACTER Classe: as [classes do bootstrap](https://getbootstrap.com/docs/3.3/css/#tables-contextual-classes) que será inserido na linha *(e.g "table-striped table-responsive table-bordered")*
+* CHARACTER Classe: as [classes do bootstrap](https://getbootstrap.com/docs/3.3/css/#tables-contextual-classes) que será inserido na linha *(e.g "success", "info", "warning", "danger"),*
 
 ### close-table (requere insert-table):
 **Sem parâmetros de entrada, fecha a tabela aberta pelo insert-table**
